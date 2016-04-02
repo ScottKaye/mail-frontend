@@ -1,0 +1,97 @@
+nav.nav-sidebar {
+	background: $sidebar-bg;
+	color: $sidebar-fg;
+	width: 220px;
+	height: 100%;
+	aside {
+		display: flex;
+		align-items: center;
+		background: $primary-bg-dark;
+		color: $dark-fg;
+		height: $appbar-height;
+		font-weight: 700;
+		padding: 20px;
+		position: relative;
+		text-transform: uppercase;
+		&::before {
+			content: "";
+			position: absolute;
+			background: linear-gradient(90deg, transparent 97%, rgba(0,0,0,0.2));
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+	}
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 20px;
+		li {
+			padding: 5px 0;
+			cursor: pointer;
+			&:hover, &.active {
+				color: $sidebar-fg-active;
+			}
+			&.list-header {
+				color: $dark-fg;
+				pointer-events: none;
+				text-transform: uppercase;
+				font-weight: 300;
+				padding: 10px 0;
+			}
+		}
+	}
+}
+
+nav.nav-appbar {
+	flex: 1;
+	display: flex;
+	align-content: stretch;
+	background: $primary-bg;
+	height: $appbar-height;
+	font-size: 0.9em;
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		height: 100%;
+		display: flex;
+		align-items: stretch;
+		li {
+			cursor: pointer;
+			flex: 1;
+			display: flex;
+			align-items: center;
+			padding: 0 40px;
+			position: relative;
+			&::before, &::after {
+				content: "";
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				height: 3px;
+				width: 0;
+				margin: 0 auto;
+			}
+			&::before {
+				width: 100%;
+				background: transparent;
+				transition: background 200ms ease 100ms;
+			}
+			&::after {
+				background: linear-gradient(90deg, transparent, #fff, transparent);
+				transition: width 100ms ease;
+			}
+			&:hover, &.active {
+				&::before {
+					background: #fff;
+				}
+				&::after {
+					width: 100%;
+				}
+			}
+		}
+	}
+}

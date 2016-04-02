@@ -1,0 +1,144 @@
+@import "material-design-iconic-font";
+@import "vars";
+@import "mixins";
+@import "nav";
+@import "email";
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	background: $dark-bg;
+	color: $dark-fg;
+	line-height: 1.3em;
+	font-family: Roboto;
+	display: flex;
+}
+
+x-data {
+	display: none;
+}
+
+#react-root, main {
+	flex: 1;
+	display: flex;
+}
+
+.pane-main {
+	flex: 1;
+}
+
+.pane-content {
+	display: flex;
+	padding: 20px 0;
+	.pane-emails {
+		flex: 0 0 40%;
+	}
+	.pane-full {
+		
+	}
+}
+
+.pane-full {
+
+}
+
+label.floating-action-button {
+	@extend %material-button;
+	position: absolute;
+	bottom: 50px;
+	right: 50px;
+	width: 56px;
+	height: 56px;
+	border: none;
+	background: $primary-bg;
+	color: $dark-fg;
+	.zmdi {
+		font-size: 18pt;
+		margin: 0;
+		transition: transform 400ms $curve-bounce;
+	}
+	input[type=checkbox] {
+		display: none;
+		&:not(:checked) ~ ul {
+			pointer-events: none;
+			li {
+				transform: translateY(30px);
+				opacity: 0;
+			}
+		}
+		&:checked ~ .zmdi {
+			transform: rotateZ(3 * 45deg);
+		}
+	}
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		bottom: 64px;
+		right: 0;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		li {
+			$numItems: 2;
+			transition: opacity 200ms ease, transform 250ms $curve-bounce;
+			@for $i from 1 through $numItems {
+				&:nth-child(#{$numItems - $i}) {
+					transition-delay: $i * 50ms;
+				}
+			}
+		}
+	}
+}
+
+button.btn-material {
+	@extend %material-button;
+	border: none;
+	background: #3c80f6; //TODO
+	color: $dark-fg;
+	margin: 10px 0;
+	width: 40px;
+	height: 40px;
+}
+
+.tooltip {
+	position: relative;
+	&::before {
+		font-size: 0.8em;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		position: absolute;
+		pointer-events: none;
+		content: attr(data-tooltip);
+		height: 100%;
+		right: 140%;
+		padding: 10px 15px;
+		border-radius: 10px;
+		background: rgba(0,0,0,0.5);
+		transition: opacity 200ms ease, transform 250ms $curve-bounce;
+		transform: translateX(10px);
+		opacity: 0;
+	}
+	&:hover::before {
+		transform: none;
+		opacity: 1;
+	}
+}
+
+.zmdi {
+	margin-right: 10px;
+}
+
+.ellipses {
+	opacity: 0.5;
+}

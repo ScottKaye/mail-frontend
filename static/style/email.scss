@@ -1,0 +1,88 @@
+/*
+
+	<div class="email-row">
+		<div class="details">
+			<span class="subject">{ this.props.subject }</span>
+			<span class="from">{ this.props.from }</span>
+		</div>
+		<span class="body-preview">{ this.props.body.slice(0, 100) }</span>
+	</div>
+
+*/
+
+.email-row {
+	display: flex;
+	flex-direction: column;
+	padding: 20px 30px;
+	&:nth-child(odd) {
+		background: rgba(0,0,0,0.1);
+	}
+	&.active {
+		box-shadow: inset 2px 0 0 $sidebar-fg-active;
+		background: transparentize($sidebar-fg-active, 0.9);
+	}
+	.details {
+		position: relative;
+		.from {
+			display: block;
+			font-size: 0.8em;
+			opacity: 0.5;
+			&:hover {
+				opacity: 0.75;
+			}
+		}
+		.subject {
+			font-size: 1.2em;
+			margin-right: 20px;
+		}
+		.options {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 5px;
+		}
+	}
+	.body-preview {
+		flex: 1;
+		padding: 15px 0;
+	}
+}
+
+.email-user {
+	font-weight: 700;
+}
+
+.email-domain {
+	font-weight: 300;
+}
+
+.email-star {
+	$glow: #FFEE58;
+	cursor: pointer;
+	font-size: 16pt;
+	position: relative;
+	display: block;
+	text-align: center;
+	width: 1em;
+	&::before {
+		$size: 15px;
+		content: "";
+		position: absolute;
+		top: -$size;
+		right: -$size;
+		bottom: -$size;
+		left: -$size;
+		background: radial-gradient($glow, transparent 70%);
+		opacity: 0;
+		transition: opacity 100ms ease;
+	}
+	&.active {
+		color: $glow;
+		&::before {
+			opacity: 0.2;
+		}
+	}
+	.zmdi {
+		margin: 0;
+	}
+}
