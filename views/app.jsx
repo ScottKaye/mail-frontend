@@ -1,5 +1,7 @@
 import React from "react";
-import { Base, ComposeScreen, EmailScreen, HomeScreen, ManageScreen, PreferencesScreen } from "./layouts/";
+import Base from "./layouts/base";
+import { ComposeScreen, EmailScreen, HomeScreen, ManageScreen, PreferencesScreen } from "./layouts/content/";
+import { MainPage, LoginPage } from "./layouts/page/";
 import AppBar from "./components/appbar";
 import SideBar from "./components/sidebar";
 import FloatingActionButton from "./components/fab";

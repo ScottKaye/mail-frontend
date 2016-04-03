@@ -1,5 +1,5 @@
 import React from "react";
-import jsonpack from "jsonpack";
+import Data from "../data";
 
 export default class Base extends React.Component {
 	constructor() {
@@ -24,11 +24,7 @@ export default class Base extends React.Component {
 					<link rel="stylesheet" href="/static/style/base.scss" />
 				</head>
 				<body>
-					{
-						//If data is to be passed into the view, encode it as JSON and insert it into a hidden element
-						this.props.data &&
-							<x-data>{ jsonpack.pack(this.props.data) }</x-data>
-					}
+					<Data data={ this.props.data } />
 					<section id="react-root">
 						<main>
 							{ this.props.children }
