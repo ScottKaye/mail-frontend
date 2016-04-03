@@ -26,7 +26,7 @@ nav.nav-sidebar {
 	ul {
 		list-style: none;
 		margin: 0;
-		padding: 20px;
+		padding: 10px 20px;
 		li {
 			padding: 5px 0;
 			cursor: pointer;
@@ -45,7 +45,7 @@ nav.nav-sidebar {
 }
 
 nav.nav-appbar {
-	flex: 1;
+	flex: 0 0 auto;
 	display: flex;
 	align-content: stretch;
 	background: $primary-bg;

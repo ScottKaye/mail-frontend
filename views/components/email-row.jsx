@@ -17,8 +17,10 @@ export default class EmailRow extends React.Component {
 
 		return <div className={ ["email-row", this.props.active && "active"].join(" ") } onClick={ this.select }>
 			<div className="details">
-				<span className="subject">{ this.props.subject }</span>
-				<span className="from"><EmailAddress address={ this.props.from } /></span>
+				<h2 className="subject">{ this.props.subject }</h2>
+				<span className="addresses">
+					<EmailAddress address={ this.props.from } />
+				</span>
 				<div className="options">
 					<EmailStar active={ this.props.starred } onClick={ this.star } />
 				</div>

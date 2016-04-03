@@ -10,11 +10,15 @@ export default class EmailFull extends React.Component {
 	render() {
 		if (this.props.index === null) return <div></div>;
 
-		return <div className="email-full">
+		return <div className={ ["email-full", "type-" + this.props.type].join(" ") }>
 			<div className="details">
-				<span className="subject">{ this.props.subject }</span>
-				<span className="from"><EmailAddress address={ this.props.from } /></span>
-				<EmailStar index={ this.props.index } active={ this.props.starred } onClick={ this.star } />
+				<h1 className="subject">{ this.props.subject }</h1>
+				<span className="addresses">
+					<EmailAddress address={ this.props.from } />
+				</span>
+				<div className="options">
+					<EmailStar index={ this.props.index } active={ this.props.starred } onClick={ this.star } />
+				</div>
 			</div>
 			<div className="body" dangerouslySetInnerHTML={{__html: this.props.body }} />
 		</div>

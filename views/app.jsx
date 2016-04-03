@@ -1,5 +1,5 @@
 import React from "react";
-import Base from "./layouts/base";
+import { Base, ComposeScreen, EmailScreen, HomeScreen, ManageScreen, PreferencesScreen } from "./layouts/";
 import AppBar from "./components/appbar";
 import SideBar from "./components/sidebar";
 import FloatingActionButton from "./components/fab";
@@ -7,23 +7,29 @@ import StyledButton from "./components/styled-button";
 import EmailProvider from "../lib/providers/email-provider";
 import EmailRow from "./components/email-row";
 import EmailFull from "./components/email-full";
+import Search from "./components/search";
 
+// Enum
 const screens = {
 	email: 1,
-	preferences: 2
+	preferences: 2,
+	home: 3,
+	manage: 4,
+	compose: 5
 };
 
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 
-		let provider = new EmailProvider();
+		this.provider = new EmailProvider();
 		this.state = {
-			emails: provider.getEmails({
+			emails: this.provider.getEmails({
 				account: "scott"
 			}),
 			activeEmail: null,
-			screen: screens.email
+			activeMailbox: null,
+			screen: screens.home
 		};
 	};
 
@@ -35,10 +41,19 @@ export default class App extends React.Component {
 		console.log("compose");
 	};
 
+	home = () => {
+		console.log("home");
+		this.setState({
+			activeEmail: null,
+			screen: screens.home
+		});
+	};
+
 	setEmailActive = (index, active) => {
 		if (active) {
 			this.setState({
-				activeEmail: index
+				activeEmail: index,
+				screen: screens.email
 			});
 		}
 	};
@@ -51,6 +66,25 @@ export default class App extends React.Component {
 		});
 	};
 
+	screen() {
+		switch(this.state.screen) {
+			case screens.email:
+				return <EmailScreen
+					email={ this.state.emails[this.state.activeEmail] } 
+					index={ this.state.activeEmail }
+					star={ this.setEmailStarred }
+				/>
+			case screens.home:
+				return <HomeScreen />
+			case screens.manage:
+				return <ManageScreen />
+			case screens.preferences:
+				return <PreferencesScreen />
+			case screens.compose:
+				return <ComposeScreen />
+		}
+	}
+
 	render() {
 		return <Base data={ this.state }>
 			<SideBar>
@@ -60,8 +94,8 @@ export default class App extends React.Component {
 			</SideBar>
 			<div className="pane-main">
 				<AppBar>
-					<item active>Test</item>
-					<item>Test</item>
+					<item active={ this.state.screen === screens.home } onClick={ this.home }>Home</item>
+					<Search provider={ this.provider } />
 				</AppBar>
 				<section className="pane-content">
 					<div className="pane-emails">
@@ -78,15 +112,7 @@ export default class App extends React.Component {
 							})
 						}
 					</div>
-					<div className="pane-full">
-						{
-							<EmailFull
-								{...this.state.emails[this.state.activeEmail] }
-								index={ this.state.activeEmail }
-								star={ this.setEmailStarred } 
-							/>
-						}
-					</div>
+					<div className="pane-full">{ this.screen() }</div>
 				</section>
 				<FloatingActionButton>
 					<StyledButton icon="settings" tooltip="Preferences" onClick={ this.preferences } />
