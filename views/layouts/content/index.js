@@ -1,7 +1,7 @@
-import ComposeScreen from "./screen-compose";
-import EmailScreen from "./screen-email";
-import HomeScreen from "./screen-home";
-import ManageScreen from "./screen-manage";
-import PreferencesScreen from "./screen-preferences";
+import ComposeScreen from "./compose";
+import EmailScreen from "./email";
+import HomeScreen from "./home";
+import ManageScreen from "./manage";
+import PreferencesScreen from "./preferences";
 
 export { ComposeScreen, EmailScreen, HomeScreen, ManageScreen, PreferencesScreen };
