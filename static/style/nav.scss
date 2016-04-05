@@ -129,4 +129,19 @@ nav.nav-appbar {
 			}
 		}
 	}
+	input.search-field {
+		flex: 1 0 50%;
+		margin: 10px;
+		padding: 5px 10px;
+		background: rgba(0,0,0,0.25);
+		color: rgba(255,255,255,0.8);
+		font-size: 1em;
+		outline: none;
+		border: none;
+		transition: flex-basis 120ms ease;
+		&:focus {
+			box-shadow: 0 0 3px 1px rgba(255,255,255,0.1);
+			flex-basis: 100%;
+		}
+	}
 }

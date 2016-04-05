@@ -21,7 +21,7 @@ export default class Base extends React.Component {
 				<head>
 					<meta charSet="UTF-8" />
 					<title>{ this.props.title || "Home" } - Mail</title>
-					<link rel="stylesheet" href="/static/style/base.scss" />
+					<link rel="stylesheet" href="/static/style/themes/dark.scss" />
 				</head>
 				<body>
 					<Data data={ this.props.data } />

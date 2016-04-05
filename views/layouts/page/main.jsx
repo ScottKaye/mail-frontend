@@ -16,10 +16,12 @@ export default class MainPage extends React.Component {
 		super(props);
 
 		this.provider = new EmailProvider();
+		this.allEmails = this.provider.getEmails({
+			account: "scott"
+		});
+
 		this.state = {
-			emails: this.provider.getEmails({
-				account: "scott"
-			}),
+			emails: this.allEmails,
 			activeEmail: null,
 			activeMailbox: null,
 			screen: Screens.home
@@ -64,6 +66,33 @@ export default class MainPage extends React.Component {
 		});
 	};
 
+	search = (value) => {
+		if (value.length) {
+			// Search for emails and update list
+			let matchingEmails = this.allEmails.filter(e => {
+				return Object.keys(e)
+					.filter(k => e[k].toLowerCase)
+					.some(k => {
+						// TODO way better search
+						let v = e[k];
+						return v.toLowerCase().includes(value.toLowerCase());
+					});
+			});
+
+			this.setState({
+				emails: matchingEmails,
+				screen: Screens.email
+			});
+		}
+		else {
+			// Clear search results, go back to main view
+			this.setState({
+				emails: this.allEmails,
+				screen: Screens.email
+			});
+		}
+	};
+
 	screen() {
 		switch(this.state.screen) {
 			case Screens.email:
@@ -95,7 +124,7 @@ export default class MainPage extends React.Component {
 			<div className="pane-main">
 				<AppBar>
 					<item active={ this.state.screen === Screens.home } onClick={ this.home }>Home</item>
-					<Search provider={ this.provider } />
+					<Search provider={ this.provider } search={ this.search } />
 				</AppBar>
 				<section className="pane-content">
 					<div className="pane-emails">
