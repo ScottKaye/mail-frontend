@@ -27,20 +27,24 @@ export default class MainPage extends React.Component {
 	};
 
 	preferences = () => {
-		console.log("prefs");
+		this.setState({
+			activeEmail: null,
+			screen: Screens.preferences
+		});
 	};
 
 	compose = () => {
-		console.log("compose");
+		this.setState({
+			activeEmail: null,
+			screen: Screens.compose
+		});
 	};
 
 	home = () => {
-		console.log("home");
 		this.setState({
 			activeEmail: null,
 			screen: Screens.home
 		});
-		console.log(Screens);
 	};
 
 	setEmailActive = (index, active) => {
@@ -84,6 +88,8 @@ export default class MainPage extends React.Component {
 			<SideBar>
 				<header>Mailboxes</header>
 				<item icon="inbox" active>Inbox</item>
+				<header>Categories</header>
+				<item icon="archive">Archive</item>
 				<item icon="block">Spam</item>
 			</SideBar>
 			<div className="pane-main">
