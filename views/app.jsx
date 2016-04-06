@@ -3,13 +3,12 @@ import { MainPage, LoginPage } from "./layouts/page/";
 
 export default class App extends React.Component {
 	render() {
-		// If logged in
-		// TODO
-		if (1 == 1) {
-			return <MainPage />
+		let auth = this.props.session.loggedIn;
+
+		if (auth) {
+			return <MainPage session={ this.props.session } />
 		}
-		else {
-			return <LoginPage />
-		}
+
+		return <LoginPage session={ this.props.session } />
 	};
-}
+};

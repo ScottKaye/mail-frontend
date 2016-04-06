@@ -9,7 +9,7 @@ import App from "./views/app";
 
 //Get data from server, which is passed down through the x-data element
 //It is base64 encoded JSON
-let props = {};
+let props = { };
 let xData = document.body.querySelector("x-data");
 if (xData) {
 	let json = jsonpack.unpack(xData.innerHTML);

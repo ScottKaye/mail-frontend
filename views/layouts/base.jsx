@@ -1,22 +1,10 @@
 import React from "react";
 import Data from "../data";
+import IsServer from "../../lib/inc/is-server";
 
 export default class Base extends React.Component {
-	constructor() {
-		super();
-
-		//Determine if this component is being rendered on the server
-		//Accessing window from the server will throw an error, so it is caught silently
-		this.isServer = true;
-		try {
-			this.isServer = window === undefined
-						 && window.document === undefined;
-		}
-		catch (e) { }
-	}
-	
 	render() {
-		return this.isServer ? (
+		return IsServer() ? (
 			<html lang="en">
 				<head>
 					<meta charSet="UTF-8" />
@@ -34,5 +22,5 @@ export default class Base extends React.Component {
 				</body>
 			</html>
 		) : <main>{ this.props.children }</main>
-	}
-}
+	};
+};
