@@ -38,8 +38,8 @@
     "mailin": "^3.0.3",
     "mongoose": "^4.4.11",
     "node-sass": "^3.4.2",
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
     "react-lite": "^0.15.6",
     "socket.io": "^1.4.5",
     "webpack": "^1.12.14"

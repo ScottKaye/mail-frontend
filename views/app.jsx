@@ -3,9 +3,9 @@ import { MainPage, LoginPage } from "./layouts/page/";
 
 export default class App extends React.Component {
 	render() {
-		let auth = this.props.session.loggedIn;
+		//let auth = this.props.session.loggedIn;
 
-		if (auth) {
+		if (true || auth) {
 			return <MainPage session={ this.props.session } />
 		}
 

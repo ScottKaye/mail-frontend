@@ -81,7 +81,7 @@ export default class MainPage extends React.Component {
 
 			this.setState({
 				emails: matchingEmails,
-				screen: Screens.email
+				screen: Screens.none
 			});
 		}
 		else {
