@@ -1,5 +1,5 @@
 import * as Screens from "../../../lib/inc/screens";
-import AppBar from "../../components/appbar";
+import { AppBar, AppBarCollection } from "../../components/appbar";
 import Base from "../base";
 import EmailFull from "../../components/email-full";
 import EmailProvider from "../../../lib/providers/email-provider";
@@ -21,6 +21,7 @@ export default class MainPage extends React.Component {
 		});
 
 		this.state = {
+			userdata: props.userdata,  // Pass userdata down as data to the client
 			emails: this.allEmails,
 			activeEmail: null,
 			activeMailbox: null,
@@ -88,6 +89,7 @@ export default class MainPage extends React.Component {
 			// Clear search results, go back to main view
 			this.setState({
 				emails: this.allEmails,
+				activeEmail: null,
 				screen: Screens.email
 			});
 		}
@@ -123,8 +125,13 @@ export default class MainPage extends React.Component {
 			</SideBar>
 			<div className="pane-main">
 				<AppBar>
-					<item active={ this.state.screen === Screens.home } onClick={ this.home }>Home</item>
-					<Search provider={ this.provider } search={ this.search } />
+					<AppBarCollection>
+						<item active={ this.state.screen === Screens.home } onClick={ this.home }>Home</item>
+						<Search provider={ this.provider } search={ this.search } />
+					</AppBarCollection>
+					<AppBarCollection align="right">
+						<item>{ this.props.userdata.name }</item>
+					</AppBarCollection>
 				</AppBar>
 				<section className="pane-content">
 					<div className="pane-emails">

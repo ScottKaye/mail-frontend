@@ -86,7 +86,9 @@ nav.nav-appbar {
 	background: $primary-bg;
 	height: $appbar-height;
 	font-size: 0.9em;
+	justify-content: space-between;
 	ul {
+		flex: 0 0 auto;
 		list-style: none;
 		padding: 0;
 		margin: 0;

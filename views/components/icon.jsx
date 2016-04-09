@@ -7,8 +7,6 @@ export default class Icon extends React.Component {
 			return <i className="zmdi zmdi-block" />
 		}
 
-		return <i className={
-			["zmdi", "zmdi-" + this.props.icon].join(" ")
-		} />
+		return <i className={ `zmdi zmdi-${ this.props.icon }` } />
 	};
 }

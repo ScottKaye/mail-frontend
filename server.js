@@ -5,6 +5,8 @@ require("babel-register")({
 	presets: ["react", "es2015", "stage-0"]
 });
 
+require("babel-polyfill");
+
 const express = require("express");
 const http = require("http");
 const socketio = require("socket.io");

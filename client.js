@@ -2,7 +2,8 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import jsonpack from "jsonpack";
+
+const unpack = JSON.parse;
 
 //TODO: Some kind of module loader?
 import App from "./views/app";
@@ -12,7 +13,7 @@ import App from "./views/app";
 let props = { };
 let xData = document.body.querySelector("x-data");
 if (xData) {
-	let json = jsonpack.unpack(xData.innerHTML);
+	let json = unpack(xData.innerHTML);
 	Object.assign(props, json);
 }
 
