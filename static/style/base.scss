@@ -2,6 +2,7 @@
 @import "mixins";
 @import "nav";
 @import "email";
+@import "login";
 
 *, *::before, *::after {
 	box-sizing: border-box;
@@ -144,6 +145,10 @@ button.btn-material {
 
 .ellipses {
 	opacity: 0.5;
+}
+
+.centered {
+	align-self: center;
 }
 
 h1, h2, h3, h4, h5, h6 {

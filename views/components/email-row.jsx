@@ -26,7 +26,7 @@ export default class EmailRow extends React.Component {
 	};
 
 	render() {
-		let [body, truncated] = Util.truncate(this.props.bodyText, 100);
+		let [body, truncated] = Util.truncate(this.props.email.bodyText, 100);
 
 		return <div
 				className={ ["email-row", this.props.active && "active"].join(" ") }
@@ -35,12 +35,12 @@ export default class EmailRow extends React.Component {
 				onDragStart={ this.dragStart }
 				>
 			<div className="details">
-				<h2 className="subject">{ this.props.subject }</h2>
+				<h2 className="subject">{ this.props.email.subject }</h2>
 				<span className="addresses">
-					<EmailAddress address={ this.props.from } />
+					<EmailAddress address={ this.props.email.from } />
 				</span>
 				<div className="options">
-					<EmailStar active={ this.props.starred } onClick={ this.star } />
+					<EmailStar active={ this.props.email.starred } onClick={ this.star } />
 				</div>
 			</div>
 			<div className="body">

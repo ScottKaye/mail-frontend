@@ -7,6 +7,6 @@ export default class Data extends React.Component {
 	render() {
 		if (!this.props.data) return <x-data />
 
-		return <x-data>{ pack(this.props.data) }</x-data>
+		return <x-data dangerouslySetInnerHTML={{ __html: pack(this.props.data) }}/>
 	}
 }

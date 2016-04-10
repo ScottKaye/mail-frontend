@@ -2,7 +2,6 @@ import * as Screens from "../../../lib/inc/screens";
 import { AppBar, AppBarCollection } from "../../components/appbar";
 import Base from "../base";
 import EmailFull from "../../components/email-full";
-import EmailProvider from "../../../lib/providers/email-provider";
 import EmailRow from "../../components/email-row";
 import FloatingActionButton from "../../components/fab";
 import React from "react";
@@ -15,10 +14,8 @@ export default class MainPage extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.provider = new EmailProvider();
-		this.allEmails = this.provider.getEmails({
-			account: "scott"
-		});
+		// Save the list of all emails for this user
+		this.allEmails = props.userdata.emails;
 
 		this.state = {
 			userdata: props.userdata,  // Pass userdata down as data to the client
@@ -64,6 +61,17 @@ export default class MainPage extends React.Component {
 		newEmails[index].starred = starred;
 		this.setState({
 			emails: newEmails
+		});
+
+		// Update database
+		fetch("/api/star", {
+			headers: {
+				"Accept": "application/json",
+				"Content-Type": "application/json"
+			},
+			credentials: "same-origin",
+			method: "post",
+			body: JSON.stringify({ _id: this.state.emails[index]._id })
 		});
 	};
 
@@ -138,7 +146,7 @@ export default class MainPage extends React.Component {
 						{
 							this.state.emails.map((email, i) => {
 								return <EmailRow
-									{ ...email }
+									email={ email._doc ? email._doc : email } // If it's a mongoose collection, get the actual document
 									key={ i }
 									index={ i }
 									active={ this.state.activeEmail === i }
