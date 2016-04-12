@@ -1,5 +1,5 @@
 import React from "react";
-import EmailFull from "../../components/email-full";
+import EmailFull from "~/views/components/email-full";
 
 export default class EmailScreen extends React.Component {
 	render() {

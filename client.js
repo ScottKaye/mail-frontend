@@ -1,12 +1,9 @@
-"use strict";
-
 import React from "react";
 import ReactDOM from "react-dom";
+import App from "~/views/app";
 
 const unpack = JSON.parse;
 
-//TODO: Some kind of module loader?
-import App from "./views/app";
 
 //Get data from server, which is passed down through the x-data element
 //It is base64 encoded JSON

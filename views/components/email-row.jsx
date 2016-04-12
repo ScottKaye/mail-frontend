@@ -1,7 +1,7 @@
 import React from "react";
 import EmailAddress from "./email-address";
 import EmailStar from "./email-star";
-import Util from "../../lib/util";
+import Util from "~/lib/util";
 
 class DraggingRow extends React.Component {
 	render() {

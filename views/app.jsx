@@ -1,5 +1,5 @@
 import React from "react";
-import { MainPage, LoginPage } from "./layouts/page/";
+import { MainPage, LoginPage } from "~/views/layouts/page/";
 
 export default class App extends React.Component {
 	render() {
