@@ -7,11 +7,13 @@ const UserSchema = new Schema({
 	name: String,
 	username: String,
 	password: String,
+	publickey: Buffer,
 	emails: [{ type: Schema.Types.ObjectId, ref: "email" }]
 });
 
 const EmailSchema = new Schema({
 	_owner: { type: Schema.Types.ObjectId, ref: "user" },
+	attachments: [{ type: Schema.Types.ObjectId, ref: "attachment" }],
 	headers: [String],
 	from: String,
 	to: String,
@@ -22,7 +24,14 @@ const EmailSchema = new Schema({
 	starred: Boolean,
 });
 
+const AttachmentSchema = new Schema({
+	_owner: { type: Schema.Types.ObjectId, ref: "email" },
+	filename: String,
+	checksum: String
+});
+
 export const Models = {
 	users: mongoose.model("user", UserSchema),
-	emails: mongoose.model("email", EmailSchema)
+	emails: mongoose.model("email", EmailSchema),
+	attachments: mongoose.model("attachments", AttachmentSchema)
 };

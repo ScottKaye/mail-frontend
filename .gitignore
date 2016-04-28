@@ -1,5 +1,7 @@
 static/js/bundle.js
 
+*.tmp
+
 # Logs
 logs
 *.log

@@ -4,7 +4,6 @@ import App from "~/views/app";
 
 const unpack = JSON.parse;
 
-
 //Get data from server, which is passed down through the x-data element
 //It is base64 encoded JSON
 let props = { };
