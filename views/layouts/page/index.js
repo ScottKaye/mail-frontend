@@ -1,4 +1,4 @@
-import MainPage from "~/views/layouts/page/main";
-import LoginPage from "~/views/layouts/page/login";
+import MainPage from "./main";
+import LoginPage from "./login";
 
 export { MainPage, LoginPage };

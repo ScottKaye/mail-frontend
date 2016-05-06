@@ -1,5 +1,5 @@
 import React from "react";
-import Base from "~/views/layouts/base";
+import Base from "../base";
 
 // Client-side login functions
 class Login {

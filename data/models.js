@@ -1,22 +1,22 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
+export const UserSchema = new Schema({
 	_id: Schema.Types.ObjectId,
 	session: String,
 	name: String,
 	username: String,
 	password: String,
-	publickey: Buffer,
+	publickey: String,
 	emails: [{ type: Schema.Types.ObjectId, ref: "email" }]
 });
 
-const EmailSchema = new Schema({
+export const EmailSchema = new Schema({
 	_owner: { type: Schema.Types.ObjectId, ref: "user" },
 	attachments: [{ type: Schema.Types.ObjectId, ref: "attachment" }],
 	headers: [String],
 	from: String,
-	to: String,
+	to: [String],
 	subject: String,
 	bodyText: String,
 	body: String,
@@ -24,7 +24,7 @@ const EmailSchema = new Schema({
 	starred: Boolean,
 });
 
-const AttachmentSchema = new Schema({
+export const AttachmentSchema = new Schema({
 	_owner: { type: Schema.Types.ObjectId, ref: "email" },
 	filename: String,
 	checksum: String

@@ -1,14 +1,15 @@
 import React from "react";
-import * as Screens from "~/lib/inc/screens";
-import { AppBar, AppBarCollection } from "~/views/components/appbar";
-import Base from "~/views/layouts/base";
-import EmailFull from "~/views/components/email-full";
-import EmailRow from "~/views/components/email-row";
-import FloatingActionButton from "~/views/components/fab";
-import Search from "~/views/components/search";
-import SideBar from "~/views/components/sidebar";
-import StyledButton from "~/views/components/styled-button";
-import { ComposeScreen, EmailScreen, HomeScreen, ManageScreen, PreferencesScreen } from "~/views/layouts/content/";
+import * as Screens from "../../../lib/inc/screens";
+import { AppBar, AppBarCollection } from "../../components/appbar";
+import Base from "../base";
+import EmailFull from "../../components/email-full";
+import EmailRow from "../../components/email-row";
+import FloatingActionButton from "../../components/fab";
+import Search from "../../components/search";
+import SideBar from "../../components/sidebar";
+import StyledButton from "../../components/styled-button";
+import Decryptable from "../../components/decryptable";
+import { ComposeScreen, EmailScreen, HomeScreen, ManageScreen, PreferencesScreen } from "../content/";
 
 export default class MainPage extends React.Component {
 	constructor(props) {
@@ -138,7 +139,7 @@ export default class MainPage extends React.Component {
 						<Search provider={ this.provider } search={ this.search } />
 					</AppBarCollection>
 					<AppBarCollection align="right">
-						<item>{ this.props.userdata.name }</item>
+						<item><Decryptable value={ this.state.userdata.name } /></item>
 					</AppBarCollection>
 				</AppBar>
 				<section className="pane-content">

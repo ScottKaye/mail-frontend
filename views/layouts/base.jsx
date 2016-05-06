@@ -1,6 +1,6 @@
 import React from "react";
-import Data from "~/views/data";
-import IsServer from "~/lib/inc/is-server";
+import Data from "../data";
+import IsServer from "../../lib/inc/is-server";
 
 export default class Base extends React.Component {
 	render() {

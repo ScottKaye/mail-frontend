@@ -14,7 +14,7 @@ export default class EmailFull extends React.Component {
 			<div className="details">
 				<h1 className="subject">{ this.props.subject }</h1>
 				<span className="addresses">
-					<EmailAddress address={ this.props.from } />
+					<EmailAddress address={ this.props.from } encrypted />
 				</span>
 				<div className="options">
 					<EmailStar index={ this.props.index } active={ this.props.starred } onClick={ this.star } />

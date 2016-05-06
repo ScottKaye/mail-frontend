@@ -24,6 +24,7 @@ module.exports = {
 				exclude: /(node_modules)/,
 				loader: "babel",
 				query: {
+					cacheDirectory: true,
 					presets: ["react", "es2015", "stage-0"]
 				}
 			},
@@ -33,6 +34,9 @@ module.exports = {
 			}
 		]
 	},
+	/*externals: [{
+		"node-rsa": true
+	}],*/
 	resolve: {
 		extensions: ["", ".js", ".jsx"],
 		alias: {
