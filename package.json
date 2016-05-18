@@ -36,7 +36,7 @@
     "express-react-views": "^0.10.1",
     "express-session": "^1.13.0",
     "helmet": "^2.0.0",
-    "isocrypto": "^0.0.2",
+    "isocrypto": "^0.0.3",
     "json-loader": "^0.5.4",
     "mailin": "^3.0.3",
     "mongoose": "^4.4.14",
@@ -49,5 +49,8 @@
     "redux": "^3.5.2",
     "socket.io": "^1.4.6",
     "webpack": "^1.13.0"
+  },
+  "devDependencies": {
+    "webpack-closure-compiler": "^2.0.2"
   }
 }

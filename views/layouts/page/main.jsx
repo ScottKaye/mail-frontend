@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import * as Screens from "../../../lib/inc/screens";
 import { AppBar, AppBarCollection } from "../../components/appbar";
 import Base from "../base";
@@ -11,70 +12,23 @@ import StyledButton from "../../components/styled-button";
 import Decryptable from "../../components/decryptable";
 import { ComposeScreen, EmailScreen, HomeScreen, ManageScreen, PreferencesScreen } from "../content/";
 
-export default class MainPage extends React.Component {
+class MainPage extends React.Component {
 	constructor(props) {
 		super(props);
 
-		// Save the list of all emails for this user
-		this.allEmails = props.userdata.emails;
-
 		this.state = {
-			userdata: props.userdata,  // Pass userdata down as data to the client
-			emails: this.allEmails,
-			activeEmail: null,
-			activeMailbox: null,
 			screen: Screens.home
 		};
 	};
 
-	preferences = () => {
-		this.setState({
-			activeEmail: null,
-			screen: Screens.preferences
-		});
+	static contextTypes = {
+		store: React.PropTypes.object
 	};
 
-	compose = () => {
-		this.setState({
-			activeEmail: null,
-			screen: Screens.compose
-		});
-	};
-
-	home = () => {
-		this.setState({
-			activeEmail: null,
-			screen: Screens.home
-		});
-	};
-
-	setEmailActive = (index, active) => {
-		if (active) {
-			this.setState({
-				activeEmail: index,
-				screen: Screens.email
-			});
-		}
-	};
-
-	setEmailStarred = (index, starred) => {
-		let newEmails = this.state.emails.slice(0);
-		newEmails[index].starred = starred;
-		this.setState({
-			emails: newEmails
-		});
-
-		// Update database
-		fetch("/api/star", {
-			headers: {
-				"Accept": "application/json",
-				"Content-Type": "application/json"
-			},
-			credentials: "same-origin",
-			method: "post",
-			body: JSON.stringify({ _id: this.state.emails[index]._id })
-		});
-	};
+	// Screen changes
+	preferences = () => this.setState({ screen: Screens.preferences });
+	compose = () => this.setState({ screen: Screens.compose });
+	home = () => this.setState({ screen: Screens.home });
 
 	search = (value) => {
 		if (value.length) {
@@ -110,7 +64,6 @@ export default class MainPage extends React.Component {
 				return <EmailScreen
 					email={ this.state.emails[this.state.activeEmail] } 
 					index={ this.state.activeEmail }
-					star={ this.setEmailStarred }
 				/>
 			case Screens.home:
 				return <HomeScreen />
@@ -124,7 +77,7 @@ export default class MainPage extends React.Component {
 	};
 
 	render() {
-		return <Base data={ this.state }>
+		return <Base>
 			<SideBar>
 				<header>Mailboxes</header>
 				<item icon="inbox" active>Inbox</item>
@@ -139,20 +92,18 @@ export default class MainPage extends React.Component {
 						<Search provider={ this.provider } search={ this.search } />
 					</AppBarCollection>
 					<AppBarCollection align="right">
-						<item><Decryptable value={ this.state.userdata.name } /></item>
+						<item><Decryptable sym={ this.props.userdata.name.sym } value={ this.props.userdata.name.value } /></item>
 					</AppBarCollection>
 				</AppBar>
 				<section className="pane-content">
 					<div className="pane-emails">
 						{
-							this.state.emails.map((email, i) => {
+							this.props.emails.map((email, i) => {
 								return <EmailRow
 									email={ email._doc ? email._doc : email } // If it's a mongoose collection, get the actual document
 									key={ i }
 									index={ i }
 									active={ this.state.activeEmail === i }
-									select={ this.setEmailActive }
-									star={ this.setEmailStarred }
 									/>
 							})
 						}
@@ -165,5 +116,12 @@ export default class MainPage extends React.Component {
 				</FloatingActionButton>
 			</div>
 		</Base>
-	}
-}
+	};
+};
+
+export default connect(state => {
+	return {
+		userdata: state.userdata,
+		emails: state.emails
+	};
+})(MainPage);

@@ -1,4 +1,5 @@
 @import "material-design-iconic-font";
+@import "animations";
 @import "mixins";
 @import "nav";
 @import "email";
@@ -19,10 +20,13 @@ body {
 	line-height: 1.3em;
 	font-family: Roboto;
 	display: flex;
-}
-
-x-data {
-	display: none;
+	&.frozen, &.frozen * {
+		transition: none !important;
+		animation: none !important;
+	}
+	&.hidden-cursor {
+		cursor: none;
+	}
 }
 
 #react-root, main {
@@ -162,10 +166,20 @@ h1 {
 
 .decryptable.working {
 	font-family: monospace;
-	opacity: 0.8;
-	-webkit-filter: blur(1px);
-	filter: blur(1px);
+	opacity: 0.5;
 	.alt {
-		opacity: 0.6;
+		opacity: 0.5;
 	}
+}
+
+.drag-ghost {
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: $drag;
+	color: #111;
+	padding: 5px 10px;
+	border-radius: 3px;
+	box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }

@@ -6,7 +6,7 @@ const nonsenseRange = 93;
 const nonsenseChars = Array(nonsenseRange).fill(0).map((c, i) => String.fromCharCode(i + 33));
 
 // An absolutely meaningless number
-const encryptionGuessFactor = 16;
+const encryptionGuessFactor = 6;
 
 function nonsense(len) {
 	len = len > 10 ? len | 0 : 10;
@@ -22,36 +22,52 @@ export default class Decryptable extends React.Component {
 	constructor(props) {
 		super(props);
 
+		// Can't decrypt anything if a symmetric key and value aren't given
+		if (!props.sym || !props.value) {
+			console.log("props are", props);
+			throw Error("Sym or value not set");
+			return;
+		}
+
 		this.state = {
-			value: props.value,
+			sym: "",
+			value: "",
 			randomText: nonsense(props.value.length / encryptionGuessFactor),
 			decrypted: false
 		};
 	};
 
 	componentDidMount() {
-		let privkey = localStorage.privkey;
-		if (!privkey) return;
-		
 		// Animate fake "decryption" because it looks super cool
-		this.anim = setInterval(this.randomize.bind(this, this.props.value.length / encryptionGuessFactor), 100);
+		this.anim = setInterval(this.randomize.bind(this, this.state.value.length / encryptionGuessFactor), 100);
 
-		Isocrypto.Symmetric.decrypt(privkey, this.state.value)
-			.then(val => {
-				clearInterval(this.anim);
+		let privatekey = localStorage.privatekey;
+		if (!privatekey) return;
 
-				this.setState({
-					value: val,
-					decrypted: true
-				});
+		// Decrypt symmetric key
+		Isocrypto.Asymmetric.decrypt(privatekey, this.props.sym).then(key => {
+			// Decrypt data with symmetric key
+			console.log("got symmetric");
+			Isocrypto.Symmetric.decrypt(key, this.props.value).then(val => {
+				console.log("done");
+				// TODO remove delay, this is for testing when decryption blocks the main thread
+				setTimeout(() => {
+					clearInterval(this.anim);
 
-				if (this.props.onComplete) {
-					this.props.onComplete(val);
-				}
+					this.setState({
+						value: val,
+						decrypted: true
+					});
+
+					if (this.props.onComplete) {
+						this.props.onComplete(val);
+					}
+				}, Math.random() * 2000);
 			})
 			.catch(err => {
-				console.error("decryption error", err);
+				console.error("Decryption error", err);
 			});
+		});
 	};
 
 	randomize = (len) => {

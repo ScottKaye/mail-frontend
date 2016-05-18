@@ -4,12 +4,6 @@ import EmailStar from "./email-star";
 import Util from "../../lib/util";
 import Decryptable from "./decryptable";
 
-class DraggingRow extends React.Component {
-	render() {
-		return <div>hello</div>
-	};
-};
-
 class EmailPreview extends React.Component {
 	state = {
 		text: this.props.text,
@@ -29,7 +23,7 @@ class EmailPreview extends React.Component {
 
 	render() {
 		if (this.state.encrypted) {
-			return <Decryptable value={ this.props.text } onComplete={ this.decrypted } />
+			return <Decryptable sym={ this.props.sym } value={ this.props.text } onComplete={ this.decrypted } />
 		}
 		else {
 			return <span>
@@ -42,40 +36,27 @@ class EmailPreview extends React.Component {
 
 export default class EmailRow extends React.Component {
 	select = () => {
-		this.props.select(this.props.index, !this.props.active);
-	};
 
-	star = (starred) => {
-		this.props.star(this.props.index, starred);
-	};
-
-	dragStart = (e) => {
-		let img = new DraggingRow();
-		console.log(img.render());
-		e.dataTransfer.setDragImage(img.render(), 0, 0);
-		console.log(55, e, this);
 	};
 
 	render() {
 		return <div
-				className={ ["email-row", this.props.active && "active"].join(" ") }
+				className={ `email-row ${ this.props.active && "active" }` }
 				onClick={ this.select }
-				draggable="true"
-				onDragStart={ this.dragStart }
 				>
 			<div className="details">
 				<h2 className="subject">
-					<Decryptable value={ this.props.email.subject } />
+					<Decryptable sym={ this.props.email.sym } value={ this.props.email.subject } />
 				</h2>
 				<span className="addresses">
-					<EmailAddress address={ this.props.email.from } encrypted />
+					<EmailAddress sym={ this.props.email.sym } address={ this.props.email.from } encrypted />
 				</span>
 				<div className="options">
-					<EmailStar active={ this.props.email.starred } onClick={ this.star } />
+					<EmailStar email={ this.props.email } />
 				</div>
 			</div>
 			<div className="body">
-				<EmailPreview text={ this.props.email.bodyText } encrypted />
+				<EmailPreview sym={ this.props.email.sym } text={ this.props.email.bodyText } encrypted />
 			</div>
 		</div>
 	};

@@ -25,8 +25,8 @@ mongoose.connect("mongodb://localhost/mail", err => {
 	console.log(err ? chalk.red(err) : chalk.green("DB is ready."));
 });
 
-require("./lib/app/mailin.js");
-require("./lib/app/middleware.js").default(app);
-require("./lib/app/routes.js").default(app);
-require("./lib/app/socket.js").default(io);
-require("./lib/app/sessions.js").default(app);
+require("./lib/app/mailin");
+require("./lib/app/sessions").default(app); // Must be above middleware
+require("./lib/app/middleware").default(app);
+require("./lib/app/routes").default(app);
+require("./lib/app/socket").default(io);

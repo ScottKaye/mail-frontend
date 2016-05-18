@@ -8,22 +8,25 @@ export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.store = createStore(MailStore, props.__store);
-		this.store.subscribe(this.render);
+		if (props.__store) {
+			this.store = createStore(MailStore, props.__store);
+		}
+		else {
+			this.store = createStore(MailStore);
+		}
 	};
 
 	componentDidMount() {
 		console.log("MOUNTED");
 	};
 
-	render() {
-		console.log("Rendering");
-
+	render = () => {
+		let gState = this.store.getState();
 		return <Provider store={ this.store }>
 			{
-				this.props.userdata
-					? <MainPage userdata={ this.props.userdata } />
-					: <LoginPage userdata={ this.props.userdata } />
+				gState.userdata.loggedIn
+					? <MainPage />
+					: <LoginPage />
 			}
 		</Provider>
 	};

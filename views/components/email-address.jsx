@@ -16,7 +16,7 @@ export default class EmailAddress extends React.Component {
 
 	render() {
 		if (this.state.encrypted) {
-			return <Decryptable value={ this.props.address } onComplete={ this.decrypted } />
+			return <Decryptable sym={ this.props.sym } value={ this.props.address } onComplete={ this.decrypted } />
 		}
 		else {
 			let [, user, domain] = this.state.address.match(/^(.+?)@(.+?)$/);

@@ -1,5 +1,5 @@
 import React from "react";
-import Data from "../data";
+import Store from "../store";
 import IsServer from "../../lib/inc/is-server";
 
 export default class Base extends React.Component {
@@ -11,13 +11,13 @@ export default class Base extends React.Component {
 					<title>{ this.props.title || "Home" } - Mail</title>
 					<link rel="stylesheet" href="/static/style/themes/dark.scss" />
 				</head>
-				<body>
-					<Data data={ this.props.data } />
+				<body className="frozen">
 					<section id="react-root">
 						<main>
 							{ this.props.children }
 						</main>
 					</section>
+					<Store />
 					<script src="/static/js/bundle.js" />
 				</body>
 			</html>

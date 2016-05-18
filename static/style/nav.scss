@@ -31,39 +31,8 @@ nav.nav-sidebar {
 			padding: 10px 10px;
 			cursor: pointer;
 			position: relative;
-			// Dropped animation
-			&::before {
-				position: absolute;
-				content: "";
-				background: $primary-bg;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 0;
-				pointer-events: none;
-				opacity: 0;
-			}
-			@keyframes dropped {
-				0% {
-					opacity: 1;
-				}
-				100% {
-					opacity: 0;
-					transform: scaleY(1.5) scaleX(1.2);
-					border-radius: 10px;
-				}
-			}
 			&:hover, &.active {
 				color: $sidebar-fg-active;
-			}
-			&.over {
-				outline: 1px dashed $primary-bg-dark;
-				box-shadow: 0 0 15px $primary-bg-dark;
-			}
-			&.dropped {
-				&::before {
-					animation: dropped 500ms ease 1;
-				}
 			}
 			&.list-header {
 				color: $dark-fg;

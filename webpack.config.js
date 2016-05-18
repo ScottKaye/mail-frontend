@@ -1,4 +1,5 @@
 var webpack = require("webpack");
+var closure = require("webpack-closure-compiler");
 
 module.exports = {
 	entry: "./client.js",
@@ -7,15 +8,19 @@ module.exports = {
 		filename: "bundle.js"
 	},
 	plugins: [
-		/*new webpack.optimize.UglifyJsPlugin({
-			mangle: {
-				except: ["exports"]
+/*		new webpack.DefinePlugin({
+			"process.env":{
+				"NODE_ENV": JSON.stringify("production")
+			}
+		}),
+		new closure({
+			compiler: {
+				language_in: "ECMASCRIPT6",
+				language_out: "ECMASCRIPT5",
+				compilation_level: "SIMPLE_OPTIMIZATIONS"
 			},
-			compress: {
-				warnings: false
-			},
-			comments: false
-		}),*/
+			concurrency: 3
+		})*/
 	],
 	module: {
 		loaders: [
